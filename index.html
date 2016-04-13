@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pi2Go</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+<script src="jquery.min.js"></script>
+<script src="stick.js?v=5"></script>
+<style>
+html {
+	font-family:sans-serif;
+	color:#fff;
+	background-color:#000;
+	box-sizing: border-box;
+}
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
+body {
+	margin:0;
+}
+#show-l {
+	width:4ex;
+}
+#show-r {
+	width:4ex;
+}
+#log {
+	clear:both;
+}
+#status {
+	color:#fff;
+	background-color:#000;
+	border:1px ridge #444;
+	float:left;
+}
+
+#status span {
+}
+
+#mjpeg_dest {
+	max-width:100%;
+}
+
+canvas {
+	max-width:300px;
+}
+
+#speak {
+	width:100%;
+	font-size:16px;
+	background:none;
+	border:1px solid #999;
+}
+
+#speak:focus {
+	background:rgba(255,255,255,0.6);
+}
+
+#speakwrap {
+	width:100%;
+	position:absolute;
+	bottom:0;
+	left:0;
+}
+
+.canvaswrap {
+	float:right;
+}
+
+@media (orientation: landscape) {
+	canvas {
+		max-width:50%;
+		max-height:100%;
+	}
+}
+
+#camwrap {
+	line-height:0;
+	position:relative;
+	float:left;
+}
+#camcenter {
+	position:absolute;
+	top:50%;
+	left:50%;
+	width:10px;
+	height:10px;
+	border:1px solid #fff;
+	margin-top:-5px;
+	margin-left:-5px;
+	border-radius:5px;
+}
+canvas { outline: none; }
+</style>
+</head>
+<body>
+<div id="camwrap"><img src="cam/cam_pic.php?time=1426263513706" id="mjpeg_dest">
+<div id="camcenter"></div>
+<div id="speakwrap"><input type="text" id="speak"></div>
+</div>
+<div class="canvaswrap" style="position: relative; margin:0; padding:0; line-height:0;">
+ <canvas id="layer1" width="600" height="600" style="z-index: 0;"></canvas>
+ <canvas id="layer2" width="600" height="600" style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
+</div>
+<div id="status">
+<span id="show-l">L</span>
+<span id="show-r">R</span>
+<div style="line-height:50px" onclick="javascript:centerCam()">Mitte</div>
+<div style="line-height:50px" onclick="javascript:CamSnapshot()">Foto</div>
+<div style="line-height:50px" onclick="javascript:sendCommand('cmd=face')">Wer?</div>
+<div style="line-height:50px" onclick="javascript:faceLearn()">lerne</div>
+<div style="line-height:50px" onclick="javascript:sendCommand('cmd=face-train')">train</div>
+<div style="line-height:50px" onclick="javascript:sendCommand('cmd=sound-9')">-9-</div>
+<div style="line-height:50px" onclick="javascript:sendCommand('cmd=shutdown')">AUS</div>
+<div style="line-height:50px" onclick="javascript:toggleFullScreen()">Voll</div>
+</div>
+<pre id="log"></pre>
+</body>
+</html>
