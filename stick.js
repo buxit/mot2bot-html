@@ -2,6 +2,7 @@ var screenWidth;
 var ongoingTouches = new Array();
 
 var options = new Object;
+var bot_status = {};
 options.mousedown=false;
 
 $.AjaxQueue = function() {
@@ -507,6 +508,18 @@ function sendCommand(cmd)
 */
 }
 
+function getStatus()
+{
+	var url = "http://"+window.location.hostname+":8888/?cmd=status";
+	$.getJSON(url, function(data){
+		bot_status = data;
+		$('#bat-percent').html(bot_status.bat_perc+" %");
+		$('#bat-voltage').html(bot_status.bat_volt+" V");
+	}).always(function(){
+		setTimeout(getStatus, 821);
+	});
+}
+
 function ProcessRequest() 
 {
     if ( xmlHttp.readyState == 4 && xmlHttp.status == 200 ) 
@@ -543,6 +556,7 @@ function toggleFullScreen() {
 window.onload = function() {
 	startup();
 	init();
+	getStatus();
 	toggleFullScreen();
 }
 
