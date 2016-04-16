@@ -129,6 +129,9 @@ function centerCam() {
   sendCommand("cmd=cam-center");
 }
 
+function toggleBeep(){
+	sendCommand("cmd=toggle-beep")
+}
 function CamSnapshot() {
   sendCommand("cmd=cam-snapshot");
 }
