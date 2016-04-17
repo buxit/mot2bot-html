@@ -123,6 +123,9 @@ function camDown(e) {
   sendCommand("cmd=cam-turn&p="+cam.pan+"&t="+cam.tilt);
 }
 
+function toggleLED(){
+	sendCommand("cmd=toggle-ledblink")
+}
 function centerCam() {
   cam.pan = 0;
   cam.tilt = 0;
